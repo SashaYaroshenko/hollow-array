@@ -18,59 +18,28 @@ namespace ConsoleApp1
     {
         public static bool IsHollow(int[] x)
         {
-            int index1 = 0;
-            int index2 = 0;
-            bool flag = false;
-            int count = 0;
+            int index1 = Array.IndexOf(x, 0);
+            int index2 = Array.LastIndexOf(x, 0);
             int count1 = 0;
             int count2 = 0;
-            for (int i = 0; i < x.Length; i++)
+            if(index2-index1<3-2)
             {
-                if (x[i] == 0)
-                {
-                    index1 = i;
-                    break;
-                }    
-            }   
-            for(int i=x.Length-1; i>=0; i--)
-            {
-                if (x[i] == 0)
-                {
-                    index2 = i;
-                    break;
-                }   
+                return false;
             }
-            for(int i=0; i<x.Length; i++)
+            else
             {
-                while(index1!=i)
+                count1 = index1;
+                count2 = (x.Length-1) - index2;
+                if (count1 == count2)
                 {
-                    count1++;
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
-            for (int i = 0; i < x.Length; i++)
-            {
-                while (index2 != i)
-                {
-                    count2++;
-                }
-            }
-            for (int i = 0; i < x.Length; i++)
-            {
-                if (x[i] == 0)
-                {
-                    count++;
-                }
-            }
-            if (count >= 3)
-            {
-                if (x[0] != 0 && x[x.Length - 1] != 0 && count1==count2)
-                {
-                    flag = true;
-                }
-                
-
-            }
-            return flag;
+            
         }
     }
 }
