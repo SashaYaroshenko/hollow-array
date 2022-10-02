@@ -19,38 +19,27 @@ namespace ConsoleApp1
     {
         public static bool IsHollow(int[] x)
         {
-            int index1 = Array.IndexOf(x, 0);
-            int index2 = Array.LastIndexOf(x, 0);
+            //var before = x.TakeWhile(x => x != 0).Count();
+            List<int> before = x.TakeWhile(c => c != 0).ToList();
+            //var middle = x.Skip(before).TakeWhile(x => x == 0).Count();
+            List<int> middle = x.Skip(before.Count).TakeWhile(c => c == 0).ToList();
+            //var after = x.Skip(before + middle);
+            List<int> after = x.Skip(before.Count + middle.Count).ToList();
 
-            int count1;
-            int count2;
-
-            while (x[index1] != 0 || x[index1 + 1] != 0 || x[index1 + 2] != 0)
+            if (middle.Count>=3)
             {
-                if (index1 + 2 > index2)
+                if (before.Count == after.Count)
                 {
-                    return false;
+                    bool a = after.All(c => c != 0);
+                    if (a == true)
+                    {
+                        return true;
+                    }
                 }
-                index1 = Array.IndexOf(x, 0, index1 + 1);
             }
-
-            while (x[index2] != 0 || x[index2 - 1] != 0 || x[index2 - 2] != 0)
-            {
-                if (index1 + 2 > index2)
-                {
-                    return false;
-                }
-                index2 = Array.LastIndexOf(x, 0, index2 - 1);                
-            }
-
-            count1 = index1;
-            count2 = (x.Length - 1) - index2;
-            if (count1 == count2)
-            {
-                return true;
-            }
-
             return false;
+            //return middle >= 3 && before == after.Count() && after.All(x => x != 0);
         }
     }
 }
+
