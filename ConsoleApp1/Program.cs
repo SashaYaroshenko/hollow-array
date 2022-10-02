@@ -19,11 +19,8 @@ namespace ConsoleApp1
     {
         public static bool IsHollow(int[] x)
         {
-            //var before = x.TakeWhile(x => x != 0).Count();
             List<int> before = x.TakeWhile(c => c != 0).ToList();
-            //var middle = x.Skip(before).TakeWhile(x => x == 0).Count();
             List<int> middle = x.Skip(before.Count).TakeWhile(c => c == 0).ToList();
-            //var after = x.Skip(before + middle);
             List<int> after = x.Skip(before.Count + middle.Count).ToList();
 
             if (middle.Count>=3)
@@ -38,8 +35,6 @@ namespace ConsoleApp1
                 }
             }
             return false;
-            //return middle >= 3 && before == after.Count() && after.All(x => x != 0);
         }
     }
 }
-
