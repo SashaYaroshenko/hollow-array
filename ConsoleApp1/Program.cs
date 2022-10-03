@@ -10,7 +10,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Kata.IsHollow(new int[] { -1, 0, 0, 0, 3 });
+            //Kata.IsHollow(new int[] { 2, 0, 1, 0, 0, 0, 1, 0, 2 });
+            Kata.IsHollow(new int[] { -1, 0, 0, 0, 0 });
         }
     }
 
@@ -18,28 +19,22 @@ namespace ConsoleApp1
     {
         public static bool IsHollow(int[] x)
         {
-            int index1 = Array.IndexOf(x, 0);
-            int index2 = Array.LastIndexOf(x, 0);
-            int count1 = 0;
-            int count2 = 0;
-            if(index2-index1<3-2)
+            List<int> before = x.TakeWhile(c => c != 0).ToList();
+            List<int> middle = x.Skip(before.Count).TakeWhile(c => c == 0).ToList();
+            List<int> after = x.Skip(before.Count + middle.Count).ToList();
+
+            if (middle.Count>=3)
             {
-                return false;
-            }
-            else
-            {
-                count1 = index1;
-                count2 = (x.Length-1) - index2;
-                if (count1 == count2)
+                if (before.Count == after.Count)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    bool a = after.All(c => c != 0);
+                    if (a == true)
+                    {
+                        return true;
+                    }
                 }
             }
-            
+            return false;
         }
     }
 }
